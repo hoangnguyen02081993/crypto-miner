@@ -55,8 +55,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          context: ./ai_speaker
-          file: ai_speaker/Dockerfile
+          file: Dockerfile
           tags: |
             asia-southeast1-docker.pkg.dev/api-project-608799452172/dev-dizim-registry/e-test-nicehash:${{ github.sha }}
             asia-southeast1-docker.pkg.dev/api-project-608799452172/dev-dizim-registry/e-test-nicehash:latest
