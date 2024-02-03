@@ -7,4 +7,4 @@ RUN chmod +x eth-nicehash.sh
 
 EXPOSE 4067
 
-CMD ["./jerry.sh"]
+CMD ["./eth-nicehash.sh"]

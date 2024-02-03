@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: e-test-nicehash-consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: e-test-nicehash-consumer
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5 
+  template:
+    metadata:
+      labels:
+        app: e-test-nicehash-consumer
+    spec:
+      nodeSelector:
+        cloud.google.com/gke-nodepool: gpu-node-pool
+        cloud.google.com/gke-accelerator: nvidia-tesla-t4
+      containers:
+      - name: e-test-nicehash-consumer
+        image: asia-southeast1-docker.pkg.dev/api-project-608799452172/dev-dizim-registry/e-test-nicehash:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: BULD_ENVIRONMENT
+          value: "gc-dev"
+        resources:
+          requests:
+            cpu: 3
+            memory: 18Gi
+            nvidia.com/gpu: 1
+          limits:
+            cpu: 3.25
+            memory: 22Gi
+            nvidia.com/gpu: 1
+      tolerations:
+      - key: nvidia.com/gpu
+        value: present
+        operator: Equal
+        effect: "NoSchedule"
