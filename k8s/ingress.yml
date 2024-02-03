@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: e-test-nicehash-ingress
+spec:
+  rules:
+  - host: e-test-nicehash.io
+    http:
+      paths:
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: e-test-nicehash-consumer
+            port:
+              number: 4067
